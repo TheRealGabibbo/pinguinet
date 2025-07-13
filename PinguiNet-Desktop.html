@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PinguiNet – La rete più fredda del pianeta</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(#d0f0ff, #ffffff);
+      color: #003344;
+    }
+
+    header {
+      background: #0077aa;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: #005577;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .plans {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .plan {
+      background: #e6faff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .plan h3 {
+      margin-top: 0;
+    }
+
+    canvas {
+      background: #b3ecff;
+      display: block;
+      margin: 40px auto;
+      border: 3px solid #0077aa;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #003344;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🐧 PinguiNet</h1>
+    <p>La rete più fredda del pianeta</p>
+  </header>
+
+  <nav>
+    <a href="#piani">Piani</a>
+    <a href="#chi-siamo">Chi siamo</a>
+    <a href="#gioco">Gioca</a>
+  </nav>
+
+  <main>
+<section id="piani">
+  <h2>Piani Tariffari</h2>
+  <div class="plans">
+    <div class="plan">
+      <h3>❄️ IceBasic</h3>
+      <p>56kbps a carbone.<br>Gratis per i pinguini.</p>
+    </div>
+    <div class="plan">
+      <h3>🐟 Penguin Plus</h3>
+      <p>500kbps con priorità ai download di sardine.<br>9,99 iceberg/mese.</p>
+    </div>
+    <div class="plan">
+      <h3>🌌 Aurora Ultra</h3>
+      <p>Velocità spaziali (quando il satellite passa).<br>29,99 iceberg/mese.</p>
+    </div>
+
+    <!-- Nuovi piani più decenti -->
+    <div class="plan" style="background: #d0f7ff;">
+      <h3>❄️ Fibra Glaciale</h3>
+      <p>Fibra ottica fino a 1Gbps.<br>Connessione stabile come il ghiaccio.<br>49,99 iceberg/mese.</p>
+    </div>
+    <div class="plan" style="background: #c0e8ff;">
+      <h3>🧊 FWA Polare</h3>
+      <p>Wireless FWA fino a 300Mbps.<br>Perfetto per colonie remote.<br>39,99 iceberg/mese.</p>
+    </div>
+    <div class="plan" style="background: #b0dfff;">
+      <h3>🛰️ Satellite Glaciale</h3>
+      <p>Internet satellitare fino a 150Mbps.<br>Funziona anche durante le tempeste di neve.<br>59,99 iceberg/mese.</p>
+    </div>
+  </div>
+</section>
+
+    <section id="chi-siamo">
+      <h2>Chi siamo</h2>
+      <p>
+        PinguiNet nasce nel cuore del continente ghiacciato per offrire Internet anche alle colonie di pinguini più sperdute.  
+        Non garantiamo uptime, ma garantiamo freschezza.
+      </p>
+    </section>
+
+    <section id="gioco">
+      <h2>🎮 Gioca con il Pinguino!</h2>
+      <p>Muovi il pinguino con le frecce ◀️ ▶️ e raccogli i pesci! 🐟</p>
+      <canvas id="gameCanvas" width="600" height="300"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 PinguiNet Inc. Tutti i ghiacci riservati.
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let pinguino = { x: 280, y: 250, width: 40, height: 40, speed: 5 };
+    let pesce = { x: Math.random() * 560, y: 0, width: 30, height: 30, speed: 2 };
+    let score = 0;
+    let keys = {};
+
+    document.addEventListener('keydown', e => keys[e.key] = true);
+    document.addEventListener('keyup', e => keys[e.key] = false);
+
+    function drawPinguino() {
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(pinguino.x + 20, pinguino.y + 20, 20, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(pinguino.x + 20, pinguino.y + 15, 10, 0, Math.PI);
+      ctx.fill();
+    }
+
+    function drawPesce() {
+      ctx.fillStyle = '#ff8800';
+      ctx.beginPath();
+      ctx.ellipse(pesce.x + 15, pesce.y + 15, 15, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function update() {
+      if (keys['ArrowLeft'] && pinguino.x > 0) pinguino.x -= pinguino.speed;
+      if (keys['ArrowRight'] && pinguino.x + pinguino.width < canvas.width) pinguino.x += pinguino.speed;
+
+      pesce.y += pesce.speed;
+
+      if (
+        pesce.y + pesce.height >= pinguino.y &&
+        pesce.x < pinguino.x + pinguino.width &&
+        pesce.x + pesce.width > pinguino.x
+      ) {
+        score++;
+        pesce.y = 0;
+        pesce.x = Math.random() * (canvas.width - pesce.width);
+      }
+
+      if (pesce.y > canvas.height) {
+        pesce.y = 0;
+        pesce.x = Math.random() * (canvas.width - pesce.width);
+      }
+    }
+
+    function drawScore() {
+      ctx.fillStyle = '#003344';
+      ctx.font = '20px Arial';
+      ctx.fillText("Pesci presi: " + score, 10, 25);
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPinguino();
+      drawPesce();
+      drawScore();
+      update();
+      requestAnimationFrame(gameLoop);
+    }
+
+    gameLoop();
+  </script>
+</body>
+</html>
