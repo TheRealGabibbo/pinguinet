@@ -145,6 +145,23 @@
   </footer>
 
   <script>
+  const secretCode = ['p', 'i', 'n', 'g', 'u'];
+  let inputBuffer = [];
+
+  document.addEventListener('keydown', function (e) {
+    inputBuffer.push(e.key.toLowerCase());
+
+    // Tieni solo gli ultimi 5 tasti premuti
+    if (inputBuffer.length > 5) {
+      inputBuffer.shift();
+    }
+
+    // Se la sequenza combacia
+    if (inputBuffer.join('') === secretCode.join('')) {
+      window.open("https://youtu.be/7Y8upXtq4Uo", "_blank");
+      inputBuffer = [];
+    }
+  });
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
