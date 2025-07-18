@@ -80,6 +80,52 @@
   </style>
 </head>
 <body>
+  <script>
+  async function rilevaLingua() {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      const country = data.country;
+
+      if (country !== 'IT') {
+        traduciInInglese();
+      }
+    } catch (error) {
+      console.error("Errore nel rilevare la posizione:", error);
+    }
+  }
+
+  function traduciInInglese() {
+    document.documentElement.lang = "en";
+
+    document.querySelector("title").textContent = "PinguiNet – The coolest network on Earth";
+    document.querySelector("header h1").textContent = "🐧 PinguiNet";
+    document.querySelector("header p").textContent = "The coolest network on Earth";
+
+    document.querySelectorAll("nav a")[0].textContent = "Plans";
+    document.querySelectorAll("nav a")[1].textContent = "About";
+    document.querySelectorAll("nav a")[2].textContent = "Play";
+
+    document.querySelector("#piani h2").textContent = "Plans";
+    document.querySelectorAll(".plan")[0].innerHTML = "<h3>❄️ IceBasic</h3><p>56kbps coal-powered.<br>Free for penguins.</p>";
+    document.querySelectorAll(".plan")[1].innerHTML = "<h3>🐟 Penguin Plus</h3><p>500kbps with sardine download priority.<br>9.99 icebergs/month.</p>";
+    document.querySelectorAll(".plan")[2].innerHTML = "<h3>🌌 Aurora Ultra</h3><p>Space-speed (when the satellite passes).<br>29.99 icebergs/month.</p>";
+    document.querySelectorAll(".plan")[3].innerHTML = "<h3>❄️ Glacial Fiber</h3><p>Fiber up to 1Gbps.<br>Stable as ice.<br>49.99 icebergs/month.</p>";
+    document.querySelectorAll(".plan")[4].innerHTML = "<h3>🧊 Polar FWA</h3><p>Wireless FWA up to 300Mbps.<br>Ideal for remote colonies.<br>39.99 icebergs/month.</p>";
+    document.querySelectorAll(".plan")[5].innerHTML = "<h3>🛰️ Glacial Satellite</h3><p>Satellite Internet up to 150Mbps.<br>Works even in snowstorms.<br>59.99 icebergs/month.</p>";
+
+    document.querySelector("#chi-siamo h2").textContent = "About Us";
+    document.querySelector("#chi-siamo p").textContent = 
+      "PinguiNet was born in the heart of the frozen continent to bring Internet to even the most remote penguin colonies. We don't guarantee uptime, but we guarantee coolness.";
+
+    document.querySelector("#gioco h2").textContent = "🎮 Play with the Penguin!";
+    document.querySelector("#gioco p").textContent = "Move the penguin with the arrow keys ◀️ ▶️ and collect fish! 🐟";
+
+    document.querySelector("footer").innerHTML = "&copy; 2025 PinguiNet Inc. All ice reserved.";
+  }
+
+  rilevaLingua();
+  </script>
 
   <header>
     <h1>🐧 PinguiNet</h1>
